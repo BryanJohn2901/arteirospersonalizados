@@ -622,25 +622,73 @@
         .cta-demanda h2 { font-size: 32px; margin-bottom: 16px; }
         .cta-demanda p { margin-bottom: 32px; font-size: 18px; }
 
-        /* Form + Mapa (Layout Invertido Arteiros Personalizados) */
+        /* Form + Mapa */
         .contato-secao {
             background: var(--cor-principal);
-            padding: 80px 0 0 0;
+            padding: 0;
+        }
+        .contato-topo {
+            padding: 64px 0 48px;
+            text-align: center;
+        }
+        .contato-badge {
+            background: rgba(255,255,255,0.12);
+            color: var(--branco);
+            margin-bottom: 16px;
+        }
+        .contato-titulo {
+            color: var(--branco);
+            font-size: clamp(28px, 3vw, 40px);
+            line-height: 1.2;
         }
         .contato-flex {
             display: flex;
             flex-wrap: wrap;
-            background: var(--cor-principal);
         }
         .form-wrapper {
             width: 50%;
-            padding: 60px 40px;
+            padding: 60px 48px;
             color: var(--branco);
         }
         .form-wrapper h3 {
             color: var(--branco);
-            font-size: 32px;
-            margin-bottom: 24px;
+            font-size: 28px;
+            margin-bottom: 8px;
+        }
+        .form-subtitulo {
+            color: rgba(255,255,255,0.6);
+            font-size: 14px;
+            margin-bottom: 28px;
+        }
+        .info-contato {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            margin-bottom: 28px;
+        }
+        .info-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            color: rgba(255,255,255,0.75);
+            font-size: 14px;
+            text-decoration: none;
+            transition: color 0.2s;
+            line-height: 1.5;
+        }
+        .info-item:hover { color: var(--branco); }
+        .info-item i {
+            font-size: 15px;
+            color: var(--cor-destaque);
+            margin-top: 2px;
+            flex-shrink: 0;
+            width: 18px;
+            text-align: center;
+        }
+        .contato-divider {
+            height: 1px;
+            background: rgba(255,255,255,0.1);
+            margin-bottom: 28px;
         }
         .form-group {
             margin-bottom: 20px;
@@ -648,17 +696,35 @@
         .form-group label {
             display: block;
             margin-bottom: 8px;
-            font-size: 14px;
+            font-size: 13px;
             font-weight: 600;
+            color: rgba(255,255,255,0.8);
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
         }
         .input-dark {
             width: 100%;
-            padding: 14px;
-            background: #222;
-            border: 1px solid #444;
+            padding: 14px 16px;
+            background: rgba(255,255,255,0.06);
+            border: 1px solid rgba(255,255,255,0.15);
             color: var(--branco);
-            border-radius: 4px;
+            border-radius: 6px;
             outline: none;
+            font-size: 15px;
+            transition: border-color 0.2s, background 0.2s;
+        }
+        .input-dark::placeholder { color: rgba(255,255,255,0.35); }
+        .input-dark:focus {
+            border-color: var(--cor-clara);
+            background: rgba(255,255,255,0.1);
+        }
+        .contato-btn-cta {
+            background: var(--cor-destaque) !important;
+            color: var(--texto-escuro) !important;
+        }
+        .contato-btn-cta:hover {
+            background: var(--cor-destaque-hover) !important;
+            color: var(--texto-escuro) !important;
         }
         .mapa-wrapper {
             width: 50%;
@@ -671,6 +737,37 @@
             width: 100%;
             height: 100%;
             border: none;
+        }
+        .mapa-overlay-card {
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            right: 20px;
+            background: rgba(8, 31, 51, 0.92);
+            backdrop-filter: blur(10px);
+            border-radius: 8px;
+            padding: 14px 18px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: var(--branco);
+            border: 1px solid rgba(255,255,255,0.1);
+            pointer-events: none;
+        }
+        .mapa-overlay-icon {
+            font-size: 22px;
+            color: var(--cor-destaque);
+            flex-shrink: 0;
+        }
+        .mapa-overlay-card strong {
+            display: block;
+            font-size: 13px;
+            font-weight: 700;
+            margin-bottom: 2px;
+        }
+        .mapa-overlay-card span {
+            font-size: 12px;
+            color: rgba(255,255,255,0.6);
         }
 
         /* Footer */
@@ -740,8 +837,10 @@
             .container-sobre { grid-template-columns: 1fr; text-align: center; }
             .sobre-features { text-align: left; }
             .mapa-wrapper, .form-wrapper { width: 100%; }
-            .mapa-wrapper { min-height: 350px; order: 1;}
-            .form-wrapper { order: 0;}
+            .mapa-wrapper { min-height: 350px; order: 1; }
+            .mapa-overlay-card { left: 12px; right: 12px; bottom: 12px; }
+            .form-wrapper { order: 0; padding: 40px 24px; }
+            .contato-topo { padding: 48px 0 32px; }
         }
         /* Modal de Orçamento */
         .modal-overlay {
@@ -1152,29 +1251,61 @@
     </section>
 
     <section class="contato-secao" id="orcamento-container">
-        <div class="contato-flex">
-            
-            <div class="form-wrapper">
-                <form action="#" method="get">
-                    <h3>Qualidade nas estampas</h3>
-                    <p style="margin-bottom: 30px; font-size: 15px; color: #CCC;">Contamos com uma estrutura moderna e equipamentos de alta performance. Preencha e receba um orçamento.</p>
 
+        <div class="contato-topo">
+            <div class="container">
+                <span class="badge contato-badge">Localização &amp; Contato</span>
+                <h2 class="contato-titulo">Venha nos visitar ou solicite<br>seu orçamento agora</h2>
+            </div>
+        </div>
+
+        <div class="contato-flex">
+
+            <div class="form-wrapper">
+                <h3>Fale Conosco</h3>
+                <p class="form-subtitulo">Preencha os dados e receba um orçamento exclusivo em minutos.</p>
+
+                <div class="info-contato">
+                    <a class="info-item" href="tel:4133521024">
+                        <i class="fa-solid fa-phone"></i>
+                        <span>(41) 3352-1024</span>
+                    </a>
+                    <a class="info-item" href="https://wa.me/5541998175906" target="_blank" rel="noopener noreferrer">
+                        <i class="fa-brands fa-whatsapp"></i>
+                        <span>(41) 99817-5906</span>
+                    </a>
+                    <div class="info-item">
+                        <i class="fa-solid fa-location-dot"></i>
+                        <span>R. Augusto Floriano da Silva, 106<br>Campina Grande do Sul - PR, 83430-000</span>
+                    </div>
+                </div>
+
+                <div class="contato-divider"></div>
+
+                <form action="#" method="get">
                     <div class="form-group">
                         <label>Nome</label>
-                        <input type="text" name="nome" class="input-dark" required>
+                        <input type="text" name="nome" class="input-dark" placeholder="Seu nome completo" required>
                     </div>
 
                     <div class="form-group">
                         <label>Telefone</label>
-                        <input type="tel" name="telefone" class="input-dark" required>
+                        <input type="tel" name="telefone" class="input-dark" placeholder="(41) 99999-9999" required>
                     </div>
-                    
-                    <a href="#orcamento"  class="btn btn-block" style="margin-top: 20px; background: var(--branco); color: var(--cor-principal);">Receber um orçamento agora</a>
+
+                    <a href="#orcamento" class="btn btn-block contato-btn-cta" style="margin-top: 20px;">Receber um orçamento agora</a>
                 </form>
             </div>
 
             <div class="mapa-wrapper">
-                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d115259.79979727785!2d-49.35924765355605!3d-25.437953245453005!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94dce41197de29ff%3A0x2e0524a1cf6ff9a3!2sCuritiba%20-%20PR!5e0!3m2!1spt-BR!2sbr!4v1718121600000!5m2!1spt-BR!2sbr" allowfullscreen="" loading="lazy"></iframe>
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3606.835984650909!2d-49.1135668!3d-25.3097105!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x86902efbca053963%3A0x97b25b7fb8c054e1!2sArteiros%20Personalizados!5e0!3m2!1spt-BR!2sbr!4v1749655663000!5m2!1spt-BR!2sbr" allowfullscreen="" loading="lazy" title="Arteiros Personalizados - Localização"></iframe>
+                <div class="mapa-overlay-card">
+                    <i class="fa-solid fa-location-dot mapa-overlay-icon"></i>
+                    <div>
+                        <strong>Arteiros Personalizados</strong>
+                        <span>R. Augusto Floriano da Silva, 106 — Campina Grande do Sul - PR</span>
+                    </div>
+                </div>
             </div>
 
         </div>
